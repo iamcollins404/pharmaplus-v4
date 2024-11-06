@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-soft {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+/* Custom Utilities */
+.glass-effect {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+.gradient-border {
+  @apply relative before:absolute before:-inset-[1px] before:rounded-[inherit] before:bg-gradient-to-r before:from-blue-500 before:to-purple-500 before:-z-10;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s infinite;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600;
+}
+
+.hover-card {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.card-glass {
+  @apply bg-white/90 backdrop-blur-sm shadow-xl border border-white/20 rounded-xl;
+}
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+}
+
+/* Enhanced Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply tracking-tight;
+}
+
+.heading-gradient {
+  @apply font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent;
+}
+
+/* Enhanced Form Elements */
+.input-enhanced {
+  @apply transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 hover:border-blue-400;
+}
+
+.button-enhanced {
+  @apply relative overflow-hidden transition-all duration-300 
+         before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-600/20 before:to-purple-600/20 
+         before:translate-x-[-100%] hover:before:translate-x-0 before:transition-transform;
+}
+
+/* Card Enhancements */
+.card-enhanced {
+  @apply relative overflow-hidden bg-gradient-to-br from-white to-gray-50
+         before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-500/10 before:to-purple-500/10
+         before:opacity-0 hover:before:opacity-100 before:transition-opacity;
+}
+
+/* Navigation Enhancements */
+.nav-item {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+         after:bg-blue-500 hover:after:w-full after:transition-all;
+}
+
+/* Status Indicators */
+.status-dot {
+  @apply w-2 h-2 rounded-full animate-pulse;
+}
+
+.status-dot.active {
+  @apply bg-green-500;
+}
+
+.status-dot.inactive {
+  @apply bg-red-500;
+}
+
+/* Enhanced Tables */
+.table-enhanced {
+  @apply divide-y divide-gray-200;
+}
+
+.table-enhanced th {
+  @apply bg-gray-50 text-gray-500 font-medium px-6 py-3 text-left text-xs uppercase tracking-wider;
+}
+
+.table-enhanced td {
+  @apply px-6 py-4 whitespace-nowrap text-sm;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+  @apply card-glass p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+}
+
+/* Chart Container */
+.chart-container {
+  @apply card-glass p-4 h-[300px];
+}
