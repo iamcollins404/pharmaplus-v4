@@ -79,6 +79,14 @@ export function ProductList() {
     }
   };
 
+  const handleSubmitProduct = (product: Product | Omit<Product, "id">) => {
+    if ("id" in product) {
+      handleEditProduct(product);
+    } else {
+      handleAddProduct(product);
+    }
+  };
+
   const sortedProducts = [...products].sort((a, b) => {
     const aValue = a[sortField];
     const bValue = b[sortField];
@@ -206,7 +214,7 @@ export function ProductList() {
         open={showProductDialog}
         onOpenChange={setShowProductDialog}
         product={selectedProduct}
-        onSubmit={selectedProduct ? handleEditProduct : handleAddProduct}
+        onSubmit={handleSubmitProduct}
       />
     </div>
   );
