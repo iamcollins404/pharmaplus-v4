@@ -65,9 +65,9 @@ export function DeliveryDetailsDialog({
               <p className="text-sm text-muted-foreground">Status</p>
               <Badge
                 variant={
-                  delivery.status === "delivered" ? "success" :
-                  delivery.status === "in_transit" ? "default" :
-                  delivery.status === "out_for_delivery" ? "warning" : "secondary"
+                  delivery.status === "delivered" ? "secondary" :
+                    delivery.status === "in_transit" ? "default" :
+                      delivery.status === "out_for_delivery" ? "outline" : "destructive"
                 }
               >
                 {delivery.status.replace("_", " ").toUpperCase()}
