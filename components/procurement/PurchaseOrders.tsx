@@ -100,6 +100,14 @@ export function PurchaseOrders() {
     toast.success("Purchase order updated successfully");
   };
 
+  const handleSubmitOrder = (order: PurchaseOrder | Omit<PurchaseOrder, "id">) => {
+    if ("id" in order) {
+      handleEditOrder(order);
+    } else {
+      handleAddOrder(order);
+    }
+  };
+
   const getStatusColor = (status: PurchaseOrder["status"]) => {
     switch (status) {
       case "draft":
@@ -198,7 +206,7 @@ export function PurchaseOrders() {
         open={showOrderDialog}
         onOpenChange={setShowOrderDialog}
         order={selectedOrder}
-        onSubmit={selectedOrder ? handleEditOrder : handleAddOrder}
+        onSubmit={handleSubmitOrder}
       />
     </div>
   );

@@ -99,6 +99,14 @@ export function SupplierList() {
     );
   };
 
+  const handleSubmitSupplier = (supplier: Supplier | Omit<Supplier, "id">) => {
+    if ("id" in supplier) {
+      handleEditSupplier(supplier);
+    } else {
+      handleAddSupplier(supplier);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-4 justify-between">
@@ -180,7 +188,7 @@ export function SupplierList() {
         open={showSupplierDialog}
         onOpenChange={setShowSupplierDialog}
         supplier={selectedSupplier}
-        onSubmit={selectedSupplier ? handleEditSupplier : handleAddSupplier}
+        onSubmit={handleSubmitSupplier}
       />
     </div>
   );
