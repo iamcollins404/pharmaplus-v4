@@ -67,11 +67,13 @@ export default function POSPage() {
     setShowCompleteSaleDialog(true);
   };
 
-  const handleSaleComplete = () => {
+  const handleSaleComplete = async (paymentDetails: { method: "card" | "cash"; amountPaid: number; cardDetails?: { number: string; expiry: string; cvv: string; } }) => {
+    // Process payment details here if needed
     setCartItems([]);
     setShowCompleteSaleDialog(false);
     toast.success("Sale completed successfully");
   };
+
 
   return (
     <div className="p-6 space-y-6">
