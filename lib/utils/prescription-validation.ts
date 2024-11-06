@@ -1,4 +1,7 @@
-import { Prescription, PrescriptionValidationResult } from "@/types/prescription";
+import {
+  Prescription,
+  PrescriptionValidationResult,
+} from "@/types/prescription";
 import { CONTROLLED_SUBSTANCES } from "@/lib/constants/controlled-substances";
 
 export function validatePrescription(
@@ -24,10 +27,10 @@ export function validatePrescription(
     }
 
     // Date validations
-    const prescriptionDate = prescriptionData.prescriptionDate 
+    const prescriptionDate = prescriptionData.prescriptionDate
       ? new Date(prescriptionData.prescriptionDate)
       : null;
-    const expiryDate = prescriptionData.expiryDate 
+    const expiryDate = prescriptionData.expiryDate
       ? new Date(prescriptionData.expiryDate)
       : null;
 
@@ -43,7 +46,7 @@ export function validatePrescription(
     if (!file) {
       errors.push("Prescription document is required");
     } else {
-      const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      const validTypes = ["application/pdf", "image/jpeg", "image/png"];
       if (!validTypes.includes(file.type)) {
         errors.push("Invalid file type. Please upload a PDF or image file");
       }
@@ -53,15 +56,17 @@ export function validatePrescription(
     if (prescriptionData.medicationId) {
       const medication = Object.values(CONTROLLED_SUBSTANCES)
         .flat()
-        .find(med => med.id === prescriptionData.medicationId);
-
+        .find((med) => med.id === prescriptionData.medicationId);
       if (medication) {
-        if (medication.schedule === 'II' && prescriptionData.refills > 0) {
+        const refills = prescriptionData.refills ?? 0;
+        if (medication.schedule === "II" && refills > 0) {
           errors.push("Schedule II medications cannot have refills");
         }
 
-        if (medication.schedule !== 'II' && prescriptionData.refills > medication.maxRefills) {
-          errors.push(`Maximum ${medication.maxRefills} refills allowed for this medication`);
+        if (medication.schedule !== "II" && refills > medication.maxRefills) {
+          errors.push(
+            `Maximum ${medication.maxRefills} refills allowed for this medication`
+          );
         }
       }
     }
@@ -75,15 +80,15 @@ export function validatePrescription(
           prescription: {
             ...prescriptionData,
             id: Math.random().toString(36).substr(2, 9),
-            status: 'valid',
+            status: "valid",
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-          } as Prescription
+          } as Prescription,
         });
       } else {
         resolve({
           isValid: false,
-          errors
+          errors,
         });
       }
     }, 1000);
